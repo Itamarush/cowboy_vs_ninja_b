@@ -21,41 +21,59 @@ namespace ariel
 {
     class Team 
     {
-        protected:
-        vector <Character*> fighters;
-        Character *leader;
         
         public:
+        vector <Character*> fighters;
+        Character *leader;
+
         Team(Character *leader);
-        Team() = default;
-        ~Team();
-        virtual void add(Character *player);
-        virtual Character *closetMemberIsAlive(std::vector<Character *> &members, Character *leader);
-        virtual Character *closetEnemyIsAlive(std::vector<Character *> &members, Character *leader);
-        void attackEnemy(Character *attacker, Character *victim);
-        void setLeader(Character *newLeader);
-        void attack(Team * enemy);
+        Team() : leader(nullptr){};
+        Team(const Team &) = default;
+        Team &operator=(const Team &) = default;
+        Team(Team &&) noexcept = default;
+        Team &operator=(Team &&) noexcept = default;
+        virtual ~Team();
+        virtual void add(Character*);
+        virtual Character *closetMemberIsAlive(std::vector<Character *>&, Character*);
+        virtual Character *closetEnemyIsAlive(std::vector<Character *>&, Character*);
+        void attackEnemy(Character *, Character *);
+        void setLeader(Character *);
+        void attack(Team *);
         virtual int stillAlive();
         virtual void print();
-        ///
-            std::vector<Character *> getAliveMembers(const std::vector<Character *> &characters) const;
+        std::vector<Character *> getAliveMembers(const std::vector<Character *>&) const;
 
     };
 
         class Team2 : public Team
     {
-        vector <Character*> fighters2;
         Character *leader;
         
         public:
-        Team2(Character *leader);
-        void add(Character *player) override;
+        Team2(Character* lead);
+        Team2() : leader(nullptr), Team(nullptr) {}
+        Team2(const Team2 &) = default;
+        Team2 &operator=(const Team2 &) = default;
+        Team2(Team2 &&) noexcept = default;
+        ~Team2() override = default;
+        Team2 &operator=(Team2 &&) noexcept = default;
+        void add(Character* character) override;
         int stillAlive() override;
         void print() override;
         std::vector<Character *> getMembers();
         std::vector<Character *> getAliveMembers(const std::vector<Character *> &characters);
 
     };
+
+    class SmartTeam : public Team {
+    public:
+        SmartTeam(Character* lead) : Team(lead) {}
+        void attack(Team *enemies) override;
+    };
+}
+
+
+    
 
 
 

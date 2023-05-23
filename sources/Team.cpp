@@ -1,6 +1,10 @@
 #include "Team.hpp"
 
-Team::Team(Character *leader) : leader(leader) {add(leader);}
+Team::Team(Character *leader) : leader(leader) 
+{
+    setLeader(leader);
+    add(leader);
+}
 
 Team::~Team()
 {

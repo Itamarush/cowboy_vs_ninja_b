@@ -1,15 +1,7 @@
 #include "Team.hpp"
 
 Team2::Team2(Character *leader) : Team(leader) {}
-
-// Team2::~Team2()
-// {
-//     for (const auto& fighter : fighters)
-//     {
-//         delete fighter;   
-//     }
-// }
-// change!!!!!!!!11
+      
 void Team2::add(Character *character)
 {
     if (character->getIsPlaying())
