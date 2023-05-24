@@ -34,16 +34,15 @@ namespace ariel
         Team(Team &&) noexcept = default;
         Team &operator=(Team &&) noexcept = default;
         virtual ~Team();
-        virtual void add(Character*);
+        void add(Character*);
         virtual Character *closetMemberIsAlive(std::vector<Character *>&, Character*);
         virtual Character *closetEnemyIsAlive(std::vector<Character *>&, Character*);
+        std::vector<Character *> getAliveFighters(const std::vector<Character *>&);
         void attackEnemy(Character *, Character *);
         void setLeader(Character *);
         virtual void attack(Team *);
-        virtual int stillAlive();
+        int stillAlive();
         virtual void print();
-        std::vector<Character *> getAliveFighters(const std::vector<Character *>&);
-
     };
 
     class Team2 : public Team
@@ -58,18 +57,16 @@ namespace ariel
         Team2(Team2 &&) noexcept = default;
         ~Team2() override = default;
         Team2 &operator=(Team2 &&) noexcept = default;
-        void add(Character* character) override;
-        int stillAlive() override;
+        // void attack(Team *enemies) override;
         void print() override;
         std::vector<Character *> getFighters();
-
     };
 
-        class SmartTeam : public Team
-        {
-            public:
-            SmartTeam(Character* lead);
-            void attack(Team *enemies) override;
-        };
+    class SmartTeam : public Team
+    {
+        public:
+        SmartTeam(Character* lead);
+        void attack(Team *enemies) override;
+    };
 
 }

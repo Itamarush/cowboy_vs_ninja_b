@@ -12,7 +12,7 @@ Team::~Team()
     {
         delete fighter;   
     }
-};
+}
 
 void Team::add(Character *player)
 {
@@ -25,20 +25,22 @@ void Team::add(Character *player)
     player->setIsPlaying(true);
 }
 
-/// @brief 
-    std::vector<Character *> Team::getAliveFighters(const std::vector<Character *>& fighters)
+std::vector<Character *> Team::getAliveFighters(const std::vector<Character *>& fighters)
+{
+    std::vector<Character *> aliveFighters;
+
+    if (fighters.capacity() == 0){}
+    
+    else for (auto fighter : fighters)
     {
-        std::vector<Character *> aliveFighters;
-        for (auto fighter : fighters)
+        if (fighter->isAlive())
         {
-            if (fighter->isAlive())
-            {
-                aliveFighters.push_back(fighter);
-            }
+            aliveFighters.push_back(fighter);
         }
-        return aliveFighters;
     }
-/// @param enemies 
+    return aliveFighters;
+}
+
 void Team::attack(Team *enemies)
 {
     if (enemies == nullptr)
@@ -58,7 +60,9 @@ void Team::attack(Team *enemies)
                 this->leader = closetMemberIsAlive(fighters, this->leader);
                 std::vector<Character *> aliveMembers = getAliveFighters(enemies->fighters);
                 if(aliveMembers.capacity() == 0)
-                {return;}
+                {
+                    return;
+                }
                 theEnemy = closetEnemyIsAlive(aliveMembers, this->leader);
                 attackEnemy(fighter, theEnemy);
             }
@@ -68,17 +72,17 @@ void Team::attack(Team *enemies)
         {
             if (fighter->getIsNinja())
             {
-                Character *theEnemy;
                 this->leader = closetMemberIsAlive(fighters, this->leader);
                 std::vector<Character *> aliveMembers = getAliveFighters(enemies->fighters);
                 if(aliveMembers.capacity() == 0)
-                {return;}
-                theEnemy = closetEnemyIsAlive(aliveMembers, this->leader);
+                {
+                    return;
+                }
+                Character *theEnemy = closetEnemyIsAlive(aliveMembers, this->leader);
                 attackEnemy(fighter, theEnemy);
             }
         } 
 }
-/// @brief change!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 
 void Team::attackEnemy(Character *member, Character *enemy)
 {
@@ -186,16 +190,24 @@ int Team::stillAlive()
     return counter;
 }
 
-//change!!!!!!!!!!!!1
-
 void Team::print()
 {
-  for (Character *member : fighters)
-    if (!member->getIsNinja())
-      cout << member->print() << endl;
-  for (Character *member : fighters)
-    if (member->getIsNinja())
-      cout << member->print() << endl;
+    std::vector<Character*> ninjas;
+
+    for (Character *member : fighters) {
+        if (member->getIsNinja()) {
+            ninjas.push_back(member);
+        } else {
+            cout << member->print() << endl;
+        }
+    }
+
+    for (Character *ninja : ninjas) {
+        cout << ninja->print() << endl;
+    }
 }
-//change!!!
-void Team::setLeader(Character *newLeader) { leader = newLeader; }
+
+void Team::setLeader(Character *newLeader)
+{
+    leader = newLeader; 
+}
