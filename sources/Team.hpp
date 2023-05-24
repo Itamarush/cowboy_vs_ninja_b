@@ -7,6 +7,7 @@
 #include <cassert>
 #include <vector>
 #include <array>
+#include <algorithm>
 
 #include "Point.hpp"
 #include "Cowboy.hpp"
@@ -38,14 +39,14 @@ namespace ariel
         virtual Character *closetEnemyIsAlive(std::vector<Character *>&, Character*);
         void attackEnemy(Character *, Character *);
         void setLeader(Character *);
-        void attack(Team *);
+        virtual void attack(Team *);
         virtual int stillAlive();
         virtual void print();
-        std::vector<Character *> getAliveMembers(const std::vector<Character *>&) const;
+        std::vector<Character *> getAliveFighters(const std::vector<Character *>&);
 
     };
 
-        class Team2 : public Team
+    class Team2 : public Team
     {
         Character *leader;
         
@@ -60,21 +61,15 @@ namespace ariel
         void add(Character* character) override;
         int stillAlive() override;
         void print() override;
-        std::vector<Character *> getMembers();
-        std::vector<Character *> getAliveMembers(const std::vector<Character *> &characters);
+        std::vector<Character *> getFighters();
 
     };
 
-    class SmartTeam : public Team {
-    public:
-        SmartTeam(Character* lead) : Team(lead) {}
-        void attack(Team *enemies) override;
-    };
-}
-
-
-    
-
-
+        class SmartTeam : public Team
+        {
+            public:
+            SmartTeam(Character* lead);
+            void attack(Team *enemies) override;
+        };
 
 }

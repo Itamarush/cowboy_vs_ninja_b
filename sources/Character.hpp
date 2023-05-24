@@ -24,6 +24,8 @@ namespace ariel{
             Character &operator=(const Character &) = default;
             Character(Character &&) noexcept = default;
             Character &operator=(Character &&) noexcept = default;
+            int getHealth() const;
+            int getPower() const;
             bool isAlive();
             double distance(Character*);
             void hit(int);

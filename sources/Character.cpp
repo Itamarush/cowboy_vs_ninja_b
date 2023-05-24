@@ -32,6 +32,20 @@ namespace ariel{
         }
     }
 
+    int Character::getHealth() const
+    {
+        return _hp;
+    }
+
+    int Character::getPower() const
+    {
+        if (isCowboy)
+        {
+            return 10;
+        }
+        return 40;
+    }
+
     std::string Character::print()
     {
         std::ostringstream oss;

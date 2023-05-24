@@ -26,17 +26,17 @@ void Team::add(Character *player)
 }
 
 /// @brief 
-    std::vector<Character *> Team::getAliveMembers(const std::vector<Character *> &characters) const
+    std::vector<Character *> Team::getAliveFighters(const std::vector<Character *>& fighters)
     {
-        std::vector<Character *> aliveMembers;
-        for (auto character : characters)
+        std::vector<Character *> aliveFighters;
+        for (auto fighter : fighters)
         {
-            if (character->isAlive())
+            if (fighter->isAlive())
             {
-                aliveMembers.push_back(character);
+                aliveFighters.push_back(fighter);
             }
         }
-        return aliveMembers;
+        return aliveFighters;
     }
 /// @param enemies 
 void Team::attack(Team *enemies)
@@ -56,7 +56,7 @@ void Team::attack(Team *enemies)
             {
                 Character *theEnemy;
                 this->leader = closetMemberIsAlive(fighters, this->leader);
-                std::vector<Character *> aliveMembers = getAliveMembers(enemies->fighters);
+                std::vector<Character *> aliveMembers = getAliveFighters(enemies->fighters);
                 if(aliveMembers.capacity() == 0)
                 {return;}
                 theEnemy = closetEnemyIsAlive(aliveMembers, this->leader);
@@ -70,7 +70,7 @@ void Team::attack(Team *enemies)
             {
                 Character *theEnemy;
                 this->leader = closetMemberIsAlive(fighters, this->leader);
-                std::vector<Character *> aliveMembers = getAliveMembers(enemies->fighters);
+                std::vector<Character *> aliveMembers = getAliveFighters(enemies->fighters);
                 if(aliveMembers.capacity() == 0)
                 {return;}
                 theEnemy = closetEnemyIsAlive(aliveMembers, this->leader);

@@ -19,22 +19,9 @@ void Team2::add(Character *character)
     this->fighters.push_back(character);
     character->setIsPlaying(true);
 }
-    std::vector<Character *> Team2::getMembers()
+    std::vector<Character *> Team2::getFighters()
     {
         return fighters;
-    }
-
-    std::vector<Character *> Team2::getAliveMembers(const std::vector<Character *> &characters)
-    {
-        std::vector<Character *> aliveMembers;
-        for (auto character : characters)
-        {
-            if (character->isAlive())
-            {
-                aliveMembers.push_back(character);
-            }
-        }
-        return aliveMembers;
     }
 
     int Team2::stillAlive()
